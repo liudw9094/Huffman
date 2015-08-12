@@ -1,0 +1,197 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAINUI DIALOGEX 0, 0, 322, 178
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_NOPARENTNOTIFY | WS_EX_STATICEDGE | WS_EX_APPWINDOW
+CAPTION "哈夫曼编码压缩  版本：0.11"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_E_READFILE,6,6,240,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "解码(&C)",IDC_DECODE,252,60,60,18,WS_DISABLED
+    LTEXT           "2010年11月   刘大卫   编写\n所有权利保留",IDC_STATIC,6,156,306,16,0,WS_EX_RIGHT
+    PUSHBUTTON      "添加…(&A)",IDC_ADD,252,24,60,18,WS_DISABLED
+    PUSHBUTTON      "删除(&D)",IDC_DELETE,252,42,60,18,WS_DISABLED
+    PUSHBUTTON      "打开(&O)",IDC_OPEN,252,6,30,12
+    PUSHBUTTON      "新建(&N)",IDC_NEW,282,6,30,12
+    CONTROL         "",IDC_LST_FILE,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,23,239,133,WS_EX_TRANSPARENT
+END
+
+IDD_BUSY DIALOGEX 0, 0, 101, 27
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION
+CAPTION "Busy..."
+FONT 11, "微软雅黑", 700, 0, 0x0
+BEGIN
+    ICON            IDI_BUSY,IDC_STATIC,8,7,13,13
+    LTEXT           "正在处理中，请稍候……",IDC_STATIC,24,9,68,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_MAINUI, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 316
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_BUSY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 92
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 20
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 英语(美国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_BUSY DIALOGEX 0, 0, 135, 28
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION
+CAPTION "Busy..."
+FONT 11, "Microsoft Sans Serif", 700, 0, 0x0
+BEGIN
+    ICON            IDI_BUSY,IDC_STATIC,7,7,13,14
+    LTEXT           "Program is busy now. Please wait.",IDC_STATIC,20,10,105,8
+END
+
+IDD_MAINUI DIALOGEX 0, 0, 322, 178
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_NOPARENTNOTIFY | WS_EX_STATICEDGE | WS_EX_APPWINDOW
+CAPTION "Huffman Coder  ver: 0.11"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_E_READFILE,6,6,240,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "&Decode",IDC_DECODE,252,60,60,18,WS_DISABLED
+    LTEXT           "Created by Liu Dw. 2010 Des\nAll rights is reserved",IDC_STATIC,6,156,306,16,0,WS_EX_RIGHT
+    PUSHBUTTON      "&Add...",IDC_ADD,252,24,60,18,WS_DISABLED
+    PUSHBUTTON      "&Delete",IDC_DELETE,252,42,60,18,WS_DISABLED
+    PUSHBUTTON      "&Open",IDC_OPEN,252,6,30,12
+    PUSHBUTTON      "&New",IDC_NEW,282,6,30,12
+    CONTROL         "",IDC_LST_FILE,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,23,239,133,WS_EX_TRANSPARENT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_BUSY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 127
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 21
+    END
+
+    IDD_MAINUI, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 316
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 173
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_HC                  ICON                    "icon1.ico"
+IDI_BUSY                ICON                    "iconBusy.ico"
+#endif    // 英语(美国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
