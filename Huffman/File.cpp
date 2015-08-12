@@ -167,15 +167,15 @@ bool CHuffmanFile::Encode(const CFile &file)
 	DWORD count1 = 0;
 	DWORD count2 = 0;
 	DWORD dwCodeCounts[256];
-	// Í³¼ÆÃ¿¸öchar±àÂëµÄ³öÏÖ´ÎÊı
+	// ç»Ÿè®¡æ¯ä¸ªcharç¼–ç çš„å‡ºç°æ¬¡æ•°
 	memset(&dwCodeCounts, 0, sizeof(dwCodeCounts));
 	for(DWORD i = 0; i < file.m_dwCount; ++i)
 		++dwCodeCounts[file.m_pByteArray[i]];
 	CHuffmanTree huf[256];
 
-	// HuffmanFileÎÄ¼şÍ·
+	// Head of Huffman File.
 	SHuffman_File_Head hfHead;
-	// HuffmanFileÎÄ¼şÍ·ËùÕ¼×Ö½ÚÊı
+	// Size of the head.
 	count += sizeof(hfHead);
 
 	for(size_t i = 0; i <256; i++)
@@ -191,34 +191,34 @@ bool CHuffmanFile::Encode(const CFile &file)
 	size_t codeKeyCount = m_pHufCode->GetCodeArrayCount();
 	for(size_t i = 0; i <codeKeyCount; i++)
 	{
-		// »ô·òÂü±àÂëËùÕ¼×Ö½Ú
+		// Size of Huffman code éœå¤«æ›¼ç¼–ç æ‰€å å­—èŠ‚
 		count += BIT_COUNT_TO_BYTE_COUNT(pCode[i].count) + sizeof(char) + sizeof(size_t);
-		// ÎÄ¼şÑ¹ËõºóÄÚÈİËùÕ¼µÄbitÊı
+		// Bits of file after it compressed.
 		count1 +=  huf[(BYTE)pCode[i].ANSI].GetWeight() * pCode[i].count ;
 	}
-	// ÎÄ¼şÑ¹ËõºóËùÕ¼µÄ×Ö½Ú
+	// æ–‡ä»¶å‹ç¼©åæ‰€å çš„å­—èŠ‚
 	count1 = count1 % 8 ?
 			count1 / 8 + 1 :
 			count1 / 8;
 	wcscpy_s(m_szFileName, ::GetFileName(file.m_szOpenedFilePath));
 	count2 = wcslen(m_szFileName) * sizeof(wchar_t) + sizeof(wchar_t);
-	// µÃµ½»ô·òÂüÑ¹ËõÎÄ¼ş×Ö½ÚÊı
+	// å¾—åˆ°éœå¤«æ›¼å‹ç¼©æ–‡ä»¶å­—èŠ‚æ•°
 	hfHead.dwCodeSize = m_dwCount = count + count1 + count2;
-	// ·ÖÅäÄÚ´æ¿Õ¼ä
+	// åˆ†é…å†…å­˜ç©ºé—´
 	m_pByteArray = new BYTE[m_dwCount];
-	// ÇåÁã£¬±ÜÃâBitToByteÖĞ»òÎ»ÔËËã³ö´í
+	// æ¸…é›¶ï¼Œé¿å…BitToByteä¸­æˆ–ä½è¿ç®—å‡ºé”™
 	memset(m_pByteArray, 0, m_dwCount * sizeof(BYTE));
 	BYTE *pCurrent = m_pByteArray;
-	// ÅäÖÃÎÄ¼şÍ·
+	// é…ç½®æ–‡ä»¶å¤´
 	hfHead.dwCodeKeyCount = codeKeyCount;
 	hfHead.dwSourceFileSize = file.m_dwCount;
-	// ÏòÄÚ´æÖĞĞ´ÈëÎÄ¼şÍ·
+	// å‘å†…å­˜ä¸­å†™å…¥æ–‡ä»¶å¤´
 	memcpy(pCurrent, &hfHead, sizeof(hfHead));
 	pCurrent += sizeof(hfHead);
-	// Ğ´ÈëÎÄ¼şÃû
+	// å†™å…¥æ–‡ä»¶å
 	wcscpy_s((wchar_t*)pCurrent, count2, m_szFileName);
 	pCurrent += count2;
-	// ÏòÄÚ´æÖĞĞ´Èë»ô·òÂü±àÂë
+	// å‘å†…å­˜ä¸­å†™å…¥éœå¤«æ›¼ç¼–ç 
 	for(size_t i = 0; i <codeKeyCount; i++)
 	{
 		memcpy(pCurrent, &pCode[i].ANSI, sizeof(char));
@@ -227,7 +227,7 @@ bool CHuffmanFile::Encode(const CFile &file)
 		pCurrent += sizeof(size_t);
 		DWORD tmpByteSize = BIT_COUNT_TO_BYTE_COUNT(pCode[i].count);
 		BYTE *tmpByte = new BYTE[tmpByteSize];
-		// ÇåÁã£¬±ÜÃâBitToByteÖĞ»òÎ»ÔËËã³ö´í
+		// æ¸…é›¶ï¼Œé¿å…BitToByteä¸­æˆ–ä½è¿ç®—å‡ºé”™
 		memset(tmpByte, 0, sizeof(BYTE) * tmpByteSize);
 		BYTE *tmpByteCurrent = tmpByte;
 		m_cPush = 0;
@@ -237,7 +237,7 @@ bool CHuffmanFile::Encode(const CFile &file)
 		pCurrent += tmpByteSize;
 		SAFE_DELETE_ARRAY(tmpByte);
 	}
-	// Ğ´ÈëÑ¹ËõÄÚÈİ
+	// å†™å…¥å‹ç¼©å†…å®¹
 	m_cPush = 0;
 	*pCurrent = 0;
 	for(size_t i = 0; i <file.m_dwCount; i++)
@@ -259,7 +259,7 @@ bool CHuffmanFile::Decode(CFile& File) const
 		m_dwError = HUFFMAN_ERROR_BADHUFFILE;
 		return false;
 	}
-	// ¶ÁÈëHuffmanFileÎÄ¼şÍ·
+	// è¯»å…¥HuffmanFileæ–‡ä»¶å¤´
 	SHuffman_File_Head hfHead;
 	memcpy(&hfHead, pReadCurrent, sizeof(hfHead));
 	pReadCurrent += sizeof(hfHead);
@@ -270,9 +270,9 @@ bool CHuffmanFile::Decode(CFile& File) const
 		m_dwError = HUFFMAN_ERROR_BADHEAD;
 		return false;
 	}
-	// Ìø¹ıÎÄ¼şÃû
+	// è·³è¿‡æ–‡ä»¶å
 	pReadCurrent += wcslen(m_szFileName) * sizeof(wchar_t) + sizeof(wchar_t);
-	// ¶ÁÈë²¢´´½¨»ô·òÂü±àÂëÊ÷
+	// è¯»å…¥å¹¶åˆ›å»ºéœå¤«æ›¼ç¼–ç æ ‘
 	CHuffmanTree HufRoot;
 	for(DWORD i = 0; i <hfHead.dwCodeKeyCount; ++i)
 	{
@@ -295,10 +295,10 @@ bool CHuffmanFile::Decode(CFile& File) const
 		SAFE_DELETE_ARRAY(pCodeKeys);
 	}
 	File.Release();
-	// ÎªĞ´ÈëµÄÎÄ¼ş¿ª±ÙÄÚ´æ¿Õ¼ä
+	// ä¸ºå†™å…¥çš„æ–‡ä»¶å¼€è¾Ÿå†…å­˜ç©ºé—´
 	File.m_dwCount = hfHead.dwSourceFileSize;
 	File.m_pByteArray = new BYTE[File.m_dwCount];
-	// ½âÂë²¢°ÑÄÚÈİĞ´ÈëÄÚ´æÖĞ
+	// è§£ç å¹¶æŠŠå†…å®¹å†™å…¥å†…å­˜ä¸­
 	m_cPop = 0;
 	char ansi = '\0';
 	for(DWORD i = 0; i <File.m_dwCount;)
